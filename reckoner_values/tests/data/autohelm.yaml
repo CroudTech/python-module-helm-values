@@ -1,0 +1,67 @@
+namespace: prod-v3-croud
+repositories:
+  croudtech-incubator:
+    url: s3://croudtech-helm-charts/croudtech-incubator
+  croudtech-stable:
+    url: s3://croudtech-helm-charts/croudtech-stable
+minimum_versions: #set minimum version requirements here
+  helm: 2.10.0
+  autohelm: 0.6.5
+charts:
+  prod-v3-croud-network-policy:
+    chart: network-policy
+    repository: croudtech-stable
+    version: 0.1.0
+  prod-v3-croud-engine-accounts:
+    chart: webapp-dotnet
+    repository: croudtech-incubator
+    version: 1.0.9
+    files:
+      - ../values_repo/webapp-dotnet/engine-accounts.yaml
+    values:
+      fullnameOverride: engine-accounts
+  prod-v3-croud-mongo:
+    chart: mongodb
+    repository: stable
+    version: 4.3.5
+    values:
+      fullnameOverride: mongo
+    files:
+      - ../values_repo/mongodb/mongo.yaml
+  prod-v3-croud-tool-notifier:
+    chart: notifier
+    repository: croudtech-stable
+    version: 1.0.1
+    files:
+      - ../values_repo/notifier/notifier.yaml
+    values:
+      fullnameOverride: tool-notifier
+  prod-v3-croud-tool-notifier-mailtrap:
+    chart: notifier
+    repository: croudtech-stable
+    version: 1.0.1
+    files:
+      - ../values_repo/notifier/notifier-mailtrap.yaml
+    values:
+      fullnameOverride: tool-notifier-mailtrap
+  prod-v3-croud-tool-scheduler:
+    chart: webapp-php
+    repository: croudtech-stable
+    version: 2.0.2
+    files:
+      - ../values_repo/webapp-php/common.yaml
+      - ../values_repo/webapp-php/tool-scheduler.yaml
+    values:
+      fullnameOverride: tool-scheduler
+      beanstalkd.fullnameOverride: tool-scheduler-beanstalkd
+  prod-v3-croud-v2-tool-manager:
+    chart: webapp-php
+    repository: croudtech-stable
+    version: 2.0.2
+    files:
+      - ../values_repo/webapp-php/common.yaml
+      - ../values_repo/webapp-php/v2-tool-manager.yaml
+    values:
+      fullnameOverride: v2-tool-manager
+      beanstalkd.fullnameOverride: v2-tool-manager-beanstalkd
+
