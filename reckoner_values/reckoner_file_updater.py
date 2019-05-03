@@ -3,6 +3,7 @@ from .yaml_utils import data_to_yaml
 from .git_values import GitValues
 import yaml
 import click
+import os
 
 class ReckonerFileUpdater:
     def __init__(self, source, dest, region, extra_files=None, extra_values=None, bucket="git", download_path="/tmp/downloaded_values"):
@@ -40,7 +41,9 @@ class ReckonerFileUpdater:
             app_name = chart_index.replace("{}-".format(namespace), "")
             chart_name = chart['chart']
             gv = GitValues(namespace, chart_name, app_name, region=self.region, extra_files=["_system"], download_path=self.download_path)
-            chart['files'] = gv.get_existing_files()
+            path_prefix = os.path.join(self.download_path, '')
+            files = [path_prefix + s for s in gv.get_existing_files()]
+            chart['files'] = files
             click.echo(click.style('Found {} files'.format(len(chart['files'])), fg='green'))
             for file in chart['files']:
                 click.echo(click.style('- {}'.format(file), fg='green'))

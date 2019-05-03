@@ -48,10 +48,11 @@ def version():
     print(__version__)
 
 @click.command()
-@click.option('--source', required=True, help='The source autohelm file')
+@click.option('--source', required=True, help='The source autohelm file', type=click.Path(exists=True))
 @click.option('--dest', required=True, help='The destination autohelm file')
 @click.option('--region', required=True, help='The target region')
 @click.option('--values', required=True, help='Path to the values files')
+#@click.option('--values-prefix', required=True, help='Prefix to add to the values files in the autohelm file.')
 def update_reckoner_file(source, dest, region, values):
     rfu = ReckonerFileUpdater(source=source, dest=dest, region=region, download_path=values)
     rfu.update()
