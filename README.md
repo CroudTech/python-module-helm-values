@@ -6,6 +6,7 @@ pip3 install --user git+ssh://git@github.com/CroudTech/python-module-helm-values
 
 ## Get values for helm release:
 
+```
 Usage: reckoner_values [OPTIONS]
 
   Build all possible s3 paths for values files
@@ -21,10 +22,11 @@ Options:
   --output [json|helm]  The source s3 bucket name  [required]
   --region TEXT         The target region
   --help                Show this message and exit.
+```
 
-Update Reckoner / Autohelm file with value files:
+## Update Reckoner / Autohelm file with value files:
 
-## Usage: update_reckoner_file [OPTIONS]
+``` update_reckoner_file [OPTIONS]
 
 Options:
   --source TEXT  The source autohelm file  [required]
