@@ -26,7 +26,8 @@ Options:
 
 ## Update Reckoner / Autohelm file with value files:
 
-``` update_reckoner_file [OPTIONS]
+```
+Usage: update_reckoner_file [OPTIONS]
 
 Options:
   --source TEXT  The source autohelm file  [required]
@@ -34,3 +35,4 @@ Options:
   --region TEXT  The target region  [required]
   --values TEXT  Path to the values files  [required]
   --help         Show this message and exit.
+```
