@@ -24,7 +24,7 @@ clean:
 
 .PHONY: prebuild
 prebuild: clean
-	@echo "`cat __init__.py.tmpl | envsubst`" > reckoner_values/__init__.py
+
 
 .PHONY: build
 build: prebuild
