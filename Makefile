@@ -35,5 +35,9 @@ build: prebuild
 testpush: build
 	@python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/* --username $(USERNAME) --password $(PASSWORD)
 
+.PHONY: push
+push: testpush
+	@python3 -m twine upload --repository-url dist/* --username $(USERNAME) --password $(PASSWORD)
+
 .PHONY: all
 all: build push
