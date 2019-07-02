@@ -18,6 +18,7 @@ setup(name='reckoner_values',
       version="1.1.0",
       license='Apache2.0',
       packages=['reckoner_values'],
+      include_package_data=True,
       install_requires=[
             "click==7.0",
             "GitPython>=2.1.11",
