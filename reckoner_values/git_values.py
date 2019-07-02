@@ -7,15 +7,20 @@ from glob import glob
 from shutil import rmtree
 from shutil import copyfile
 class GitValues():
-    def __init__(self, namespace, chart, app, region=False, extra_files=[], extra_values=[], download_path = "/tmp/downloaded_values"):
+    def __init__(self, namespace, chart, app, colour, envname, region=False, extra_files=[], extra_values=[], download_path = "/tmp/downloaded_values", download_once=False):
         self.namespace = namespace
         self.chart = chart.split('/').pop()
         self.app = app
+        self.colour = colour
+        self.envname = envname
         self.extra_files = extra_files
         self.extra_values = extra_values
         self.namespace_size = len(self.namespace.split('-'))
         self.region = region
         self.download_path = download_path
+        self.download_once = download_once
+        self.repo_name = "{colour}-{envname}-helm-values".format(colour=self.colour, envname=self.envname)
+        self.full_download_path = "{download_path}/{repo_name}/".format(download_path=self.download_path, repo_name=self.repo_name)
 
     def download_values(self, dest):
         self.download_values_from_git()
@@ -23,11 +28,11 @@ class GitValues():
 
         downloaded = []
         for file in self.get_existing_files():
-            destination = dest + '/' + required_file
+            destination = dest + '/' + file
             destination_folder = os.path.dirname(destination)
             if os.path.exists(destination_folder) == False:
                 os.makedirs(destination_folder)
-                copyfile(self.download_path + '/' + required_file, destination)
+            copyfile(self.full_download_path + '/' + file, destination)
 
             downloaded.append(destination)
 
@@ -37,20 +42,22 @@ class GitValues():
         fileList = self.get_files_as_list(self.download_path)
         existing_files = []
         required_files = self.get_required_files()
+
         for required_file in required_files:
             if required_file in fileList:
                 existing_files.append(required_file)
         return existing_files
 
     def download_values_from_git(self):
-        download_path = "{download_path}/{colour}-{envname}-helm-values".format(download_path = self.download_path, colour=os.getenv('COLOUR'), envname=os.getenv('ENVNAME'))
+        if os.path.exists(self.full_download_path) and self.download_once:
+            return True
         try:
-            rmtree(download_path)
+            rmtree(self.full_download_path)
         except:
             pass
-        os.makedirs(download_path)
-        clone_url = "https://git-codecommit.eu-west-2.amazonaws.com/v1/repos/{colour}-{envname}-helm-values".format(colour=os.getenv('COLOUR'), envname=os.getenv('ENVNAME'), region=os.getenv('VALUES_REGION', 'eu-west-2'))
-        subprocess.check_output(['git', 'clone', clone_url, download_path])
+        os.makedirs(self.full_download_path)
+        clone_url = "https://git-codecommit.{region}.amazonaws.com/v1/repos/{repo_name}".format(repo_name=self.repo_name, region=os.getenv('VALUES_REGION', 'eu-west-2'))
+        subprocess.check_output(['git', 'clone', clone_url, self.full_download_path])
 
 
     def get_required_files(self):
@@ -67,8 +74,9 @@ class GitValues():
     def get_files_as_list(self, download_path):
         results = [y for x in os.walk(download_path) for y in glob(os.path.join(x[0], '*.yaml'))]
         files = []
+
         for result in results:
-            files.append(result.replace(download_path + '/', ''))
+            files.append(result.replace(self.full_download_path, ''))
 
         return files
 

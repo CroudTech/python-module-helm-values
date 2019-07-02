@@ -32,6 +32,8 @@ setup(name='reckoner_values',
       entry_points=''' #for click integration
           [console_scripts]
           reckoner_values=reckoner_values.cli:cli
+          reckoner_possible_values=reckoner_values.cli:possible_values
           update_reckoner_file=reckoner_values.cli:update_reckoner_file
+          create_reckoner_file=reckoner_values.cli:create_reckoner_file
       '''
       )
