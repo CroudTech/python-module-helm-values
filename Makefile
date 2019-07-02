@@ -10,6 +10,9 @@ SHELL := bash
 export USERNAME=jscrobinson
 export PASSWORD=empty
 
+.PHONY: bumppatch
+bumppatch:
+	@bumpversion patch setup.py reckoner_values/__init__.py
 
 .PHONY: init
 init:
@@ -37,7 +40,7 @@ testpush: build
 
 .PHONY: push
 push: testpush
-	@python3 -m twine upload --repository-url dist/* --username $(USERNAME) --password $(PASSWORD)
+	@python3 -m twine upload dist/* --username $(USERNAME) --password $(PASSWORD)
 
 .PHONY: all
 all: build push
