@@ -57,7 +57,10 @@ class GitValues():
             pass
         os.makedirs(self.full_download_path)
         clone_url = "https://git-codecommit.{region}.amazonaws.com/v1/repos/{repo_name}".format(repo_name=self.repo_name, region=os.getenv('VALUES_REGION', 'eu-west-2'))
-        subprocess.check_output(['git', 'clone', clone_url, self.full_download_path])
+        try:
+            subprocess.check_output(['git', 'clone', clone_url, self.full_download_path])
+        except subprocess.CalledProcessError as err:
+            print('Please make sure you have access to the "{}" repository'.format(self.repo_name))
 
 
     def get_required_files(self):

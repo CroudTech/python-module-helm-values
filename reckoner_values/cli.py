@@ -10,7 +10,13 @@ import coloredlogs
 import json
 import os
 
-@click.command()
+
+@click.group()
+@click.option('--debug/--no-debug', default=False)
+def cmd(debug):
+    pass
+
+@cmd.command()
 @click.option('--namespace', default="default", help='The namespace for the release')
 @click.option('--chart', required=True, help='The name of the chart')
 @click.option('--app', required=True, help='The app name for the release')
@@ -22,7 +28,7 @@ import os
 @click.option('--colour', default=os.getenv('COLOUR'), help='The cluster colour')
 @click.option('--envname', default=os.getenv('ENVNAME'), help='The cluster env name')
 @click.option('--download-once/--always-download', 'download_once', default=False, help="Only download values if they don't already exist locally")
-def cli(namespace, chart, app, extrafiles, extravalues, destination, output, region, colour, envname, download_once):
+def values(namespace, chart, app, extrafiles, extravalues, destination, output, region, colour, envname, download_once):
     """Build all possible s3 paths for values files"""
     if extrafiles == None:
         extrafiles = []
@@ -54,7 +60,7 @@ def cli(namespace, chart, app, extrafiles, extravalues, destination, output, reg
             helm_args = helm_args + ' --values ' + file
         print(helm_args)
 
-@click.command()
+@cmd.command()
 @click.option('--namespace', default="default", help='The namespace for the release')
 @click.option('--chart', required=True, help='The name of the chart')
 @click.option('--app', required=True, help='The app name for the release')
@@ -92,12 +98,12 @@ def possible_values(namespace, chart, app, extrafiles, extravalues, destination,
 
     print(json.dumps(possible))
 
-@click.command()
+@cmd.command()
 def version():
     """ Takes no arguments, outputs version info"""
     print(__version__)
 
-@click.command()
+@cmd.command()
 @click.option('--source', required=True, help='The source autohelm file', type=click.Path(exists=True))
 @click.option('--dest', required=True, help='The destination autohelm file')
 @click.option('--region', required=True, help='The target region')
@@ -107,10 +113,12 @@ def update_reckoner_file(source, dest, region, values):
     rfu = ReckonerFileUpdater(source=source, dest=dest, region=region, download_path=values)
     rfu.update()
 
-@click.command()
+@cmd.command()
 @click.option('--namespace', required=True, help='The source namespace')
 @click.option('--region', default="eu-west-2", required=True, help='The target region')
 @click.option('--values', required=True, help='Path to the values files')
 def create_reckoner_file(namespace, region, values):
     rfc = ReckonerFileCreator(namespace=namespace, region=region, download_path=values)
     rfc.update()
+
+
