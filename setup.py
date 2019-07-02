@@ -15,6 +15,7 @@ setup(name='reckoner_values',
       description='Package to find helm values and update autohelm / reckoner files',
       author='Jim Robinson',
       author_email='jscrobinson@gmail,com',
+      version="1.0.0",
       license='Apache2.0',
       packages=['reckoner_values'],
       install_requires=[
