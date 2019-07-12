@@ -121,4 +121,5 @@ def create_reckoner_file(namespace, region, values):
     rfc = ReckonerFileCreator(namespace=namespace, region=region, download_path=values)
     rfc.update()
 
-
+if __name__ == '__main__':
+    cmd()

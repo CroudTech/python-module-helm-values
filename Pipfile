@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+setup-py = {editable = true,version = "*"}
+reckoner-values = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"
