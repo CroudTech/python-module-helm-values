@@ -25,24 +25,16 @@ class GitValues():
     def download_values(self, dest):
         self.download_values_from_git()
         fileList = self.get_files_as_list(self.download_path)
-
-        downloaded = []
-        for file in self.get_existing_files():
-            destination = dest + '/' + file
-            destination_folder = os.path.dirname(destination)
-            if os.path.exists(destination_folder) == False:
-                os.makedirs(destination_folder)
-            copyfile(self.full_download_path + '/' + file, destination)
-
-            downloaded.append(destination)
-
-        return downloaded
+        return fileList
 
     def get_existing_files(self):
         fileList = self.get_files_as_list(self.download_path)
+
         existing_files = []
         required_files = self.get_required_files()
-
+        # #print(required_files)
+        # print(fileList)
+        # quit()
         for required_file in required_files:
             if required_file in fileList:
                 existing_files.append(required_file)
@@ -79,17 +71,18 @@ class GitValues():
         files = []
 
         for result in results:
-            files.append(result.replace(self.full_download_path, ''))
+            files.append(result)
 
         return files
 
     def get_all_paths(self, root=''):
+        root = self.download_path + '/' + self.repo_name + root
         paths = []
         path_parts = self.get_path_parts()
         level = 0
         for index, path_part in enumerate(path_parts):
             level += 1
-            path = root + '/' + path_part
+            path = root + '/' + path_part.lstrip('/')
             path = path.strip('/')
             if level > 0:
                 paths.append(path + '/common.yaml')

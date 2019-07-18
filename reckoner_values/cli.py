@@ -117,9 +117,28 @@ def update_reckoner_file(source, dest, region, values):
 @click.option('--namespace', required=True, help='The source namespace')
 @click.option('--region', default="eu-west-2", required=True, help='The target region')
 @click.option('--values', required=True, help='Path to the values files')
-def create_reckoner_file(namespace, region, values):
-    rfc = ReckonerFileCreator(namespace=namespace, region=region, download_path=values)
-    rfc.update()
+@click.option('--repository', multiple=True)
+@click.option('--colour', required=True)
+@click.option('--envname', required=True)
+@click.option('--use-latest-chart-version', default=False)
+@click.option('--output-file', required=True)
+def create_reckoner_file(namespace, region, values, repository, colour, envname, use_latest_chart_version, output_file):
+    repositories = {}
+    for repository_item in repository:
+        repository_item = repository_item.split(',', 2)
+        repositories[repository_item[0]] = repository_item[1]
+
+    rfc = ReckonerFileCreator(
+        namespace=namespace,
+        region=region,
+        download_path=values,
+        repositories=repositories,
+        envname=envname,
+        colour=colour,
+        use_latest_chart_version=use_latest_chart_version,
+        output_file=output_file
+    )
+    rfc.create()
 
 if __name__ == '__main__':
     cmd()

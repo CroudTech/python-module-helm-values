@@ -30,7 +30,9 @@ setup(name='reckoner_values',
             "boto3>=1.9",
             "jinja2>=1.2",
             "yq>=2.7",
-            "urllib3>=1.25"
+            "urllib3>=1.25",
+            "pyhelm>=0.1",
+            "kubernetes>=10.0"
       ],
       entry_points=''' #for click integration
           [console_scripts]
