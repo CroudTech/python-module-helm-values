@@ -1,0 +1,213 @@
+!!python/object/apply:collections.OrderedDict
+- - - namespace
+    - prod-v3-croud
+  - - repositories
+    - croudtech-stable: s3://croudtech-helm-charts/croudtech-stable
+      stable: https://kubernetes-charts.storage.googleapis.com/
+  - - minimum_versions
+    - autohelm: 0.6.5
+      helm: 2.10.0
+  - - charts
+    - !!python/object/apply:collections.OrderedDict
+      - - - prod-v3-croud-activity-log
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/activity-log.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: activity-log
+            version: 1.1.0
+        - - prod-v3-croud-channel-types
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/channel-types.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: channel-types
+            version: 1.1.0
+        - - prod-v3-croud-client-service
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/client-service.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: client-service
+            version: 1.1.0
+        - - prod-v3-croud-engine-accounts
+          - chart: webapp-dotnet
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/webapp-dotnet/engine-accounts.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: engine-accounts
+            version: 1.0.10
+        - - prod-v3-croud-file-service
+          - chart: node
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/node/file-service.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: file-service
+            version: 1.0.0
+        - - prod-v3-croud-frontend
+          - chart: croudtech-v3-frontend
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-frontend/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-frontend/frontend.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: frontend
+            version: 2.0.0
+        - - prod-v3-croud-holiday-seeder
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/holiday-seeder.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: holiday-seeder
+            version: 1.1.0
+        - - prod-v3-croud-identity-api
+          - chart: identityserver
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_identityserver/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/identityserver/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/identityserver/identity-api.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: identity-api
+            version: 1.0.5
+        - - prod-v3-croud-identityserver
+          - chart: identityserver
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_identityserver/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/identityserver/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/identityserver/identityserver.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: identityserver
+            version: 1.0.5
+        - - prod-v3-croud-mongo
+          - chart: mongodb
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/mongodb/mongo.yaml
+            repository: null
+            set-values:
+              fullnameOverride: mongo
+            version: 4.3.5
+        - - prod-v3-croud-network-policy
+          - chart: network-policy
+            files: []
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: network-policy
+            version: 0.1.0
+        - - prod-v3-croud-suggested-work
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/suggested-work.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: suggested-work
+            version: 1.1.0
+        - - prod-v3-croud-tool-notifier-mailtrap
+          - chart: notifier
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/notifier/tool-notifier-mailtrap.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: tool-notifier-mailtrap
+            version: 1.0.1
+        - - prod-v3-croud-tool-notifier
+          - chart: notifier
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/notifier/tool-notifier.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: tool-notifier
+            version: 1.0.1
+        - - prod-v3-croud-tool-scheduler
+          - chart: webapp-php
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_webapp-php/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/webapp-php/tool-scheduler.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: tool-scheduler
+            version: 2.0.2
+        - - prod-v3-croud-user-service
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/user-service.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: user-service
+            version: 1.1.0
+        - - prod-v3-croud-v2-tool-manager
+          - chart: webapp-php
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_webapp-php/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/webapp-php/v2-tool-manager.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: v2-tool-manager
+            version: 2.0.16
+        - - prod-v3-croud-v3-frontend
+          - chart: croudtech-v3-frontend
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-frontend/common.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: v3-frontend
+            version: 2.0.0
+        - - prod-v3-croud-workflow-manager
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/workflow-manager.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: workflow-manager
+            version: 1.1.0
+        - - prod-v3-croud-workflow-templates
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/workflow-templates.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: workflow-templates
+            version: 1.1.0
+        - - prod-v3-croud-workflow
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/workflow.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: workflow
+            version: 1.1.0
+        - - prod-v3-croud-wwe
+          - chart: croudtech-v3-service
+            files:
+            - ../values_repo/olive-production-helm-values/prod/v3/_croudtech-v3-service/common.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/_system.yaml
+            - ../values_repo/olive-production-helm-values/prod/v3/croud/croudtech-v3-service/wwe.yaml
+            repository: croudtech-stable
+            set-values:
+              fullnameOverride: wwe
+            version: 1.1.0

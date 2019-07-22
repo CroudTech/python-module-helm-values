@@ -18,7 +18,15 @@ def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
         construct_mapping)
     return yaml.load(stream, OrderedLoader)
 
-def data_to_yaml(data):
+def olddata_to_yaml(data):
     #represent_dict_order = lambda self, data:  self.represent_mapping('tag:yaml.org,2002:map', data.items())
     #yaml.add_representer(OrderedDict, represent_dict_order)
     return yaml.dump(data, Dumper=Dumper)
+
+def data_to_yaml(data, **options):
+    opts = dict(indent=4, default_flow_style=False)
+    opts.update(options)
+    if 'Dumper' not in opts:
+        return yaml.safe_dump(data, **opts)
+    else:
+        return yaml.dump(data, **opts) 
