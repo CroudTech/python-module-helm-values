@@ -24,7 +24,7 @@ class ReckonerFileCreator:
         self.reckoner_data = OrderedDict({
             "namespace": self.namespace,
             "repositories": {
-                "stable": "https://kubernetes-charts.storage.googleapis.com/"
+                "stable": {"url": "https://kubernetes-charts.storage.googleapis.com/"
             },
             "minimum_versions": {
                 "helm": "2.10.0",
@@ -35,7 +35,7 @@ class ReckonerFileCreator:
         self.repository_charts = {}
         self.repository_chart_versions = {}
         for repository, url in repositories.items():
-            self.reckoner_data['repositories'][repository] = url
+            self.reckoner_data['repositories'][repository] = {"url": url}
             self.repository_charts[repository] = {}
             for chart_name, chart_data in repo_index(url)['entries'].items():
                 self.repository_charts[repository][chart_name] = chart_data
