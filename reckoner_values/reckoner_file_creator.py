@@ -24,7 +24,9 @@ class ReckonerFileCreator:
         self.reckoner_data = OrderedDict({
             "namespace": self.namespace,
             "repositories": {
-                "stable": {"url": "https://kubernetes-charts.storage.googleapis.com/"
+                "stable": {
+                    "url": "https://kubernetes-charts.storage.googleapis.com/"
+                }
             },
             "minimum_versions": {
                 "helm": "2.10.0",
