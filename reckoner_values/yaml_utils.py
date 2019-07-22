@@ -1,5 +1,5 @@
 from collections import OrderedDict
-import yaml
+import oyaml as yaml
 import json
 
 try:
@@ -19,6 +19,6 @@ def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
     return yaml.load(stream, OrderedLoader)
 
 def data_to_yaml(data):
-    represent_dict_order = lambda self, data:  self.represent_mapping('tag:yaml.org,2002:map', data.items())
-    yaml.add_representer(OrderedDict, represent_dict_order)
+    #represent_dict_order = lambda self, data:  self.represent_mapping('tag:yaml.org,2002:map', data.items())
+    #yaml.add_representer(OrderedDict, represent_dict_order)
     return yaml.dump(data, Dumper=Dumper)
